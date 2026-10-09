@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132b4b">
+  <meta name="description" content="Project Student Management dengan HTML, CSS, dan JavaScript. Kelola data mahasiswa melalui form, pencarian, filter, dan pagination.">
+  <title>Student Management | PWEB</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+
+  <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-cap" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5-10-5Z"/><path d="M6 11v6c3 3 9 3 12 0v-6M22 9v7"/></symbol>
+    <symbol id="icon-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M15 3.13a4 4 0 0 1 0 7.75"/><circle cx="9" cy="7" r="4"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 3H20v19H6.5A2.5 2.5 0 0 1 4 19.5v-14A2.5 2.5 0 0 1 6.5 3ZM8 7h8M8 11h5"/></symbol>
+    <symbol id="icon-list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12l4 4v12a2 2 0 0 1-2 2ZM7 3v6h10V3M7 21v-8h10v8"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2.8 7M3 4v7h7"/></symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24"><path d="m16 3 5 5M4 20l4-1 13-13a2.8 2.8 0 0 0-4-4L4 15l-1 6 6-1M13 5l5 5"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M5 6l1 14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1l1-14M10 10v7M14 10v7"/></symbol>
+    <symbol id="icon-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="icon-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-device" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="icon-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+  </svg>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#overview" aria-label="Student Management, kembali ke ringkasan">
+        <span class="brand-mark"><svg class="icon" aria-hidden="true"><use href="#icon-cap"/></svg></span>
+        <span>Student<span class="brand-light">Management</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Navigasi utama">
+        <a href="#overview" data-nav="overview">Home</a>
+        <a href="#students" class="active" data-nav="students" aria-current="location">Students</a>
+        <button type="button" id="about-button">About</button>
+      </nav>
+      <span class="demo-badge"><span aria-hidden="true"></span>Mode demo</span>
+    </div>
+  </header>
+
+  <main id="main-content" class="shell main-content" tabindex="-1">
+    <section id="overview" class="overview" aria-labelledby="page-title">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">Administrasi akademik</p>
+          <h1 id="page-title">Kelola mahasiswa<span class="title-dot">.</span></h1>
+          <p class="page-description">Tambahkan, perbarui, dan temukan data mahasiswa dengan mudah.</p>
+        </div>
+        <button type="button" class="button button-primary add-student" id="add-student-button">
+          <svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg>
+          Tambah mahasiswa
+        </button>
+      </div>
+
+      <div class="stats-grid" aria-label="Ringkasan data mahasiswa">
+        <article class="stat-card">
+          <span class="stat-icon stat-blue"><svg class="icon" aria-hidden="true"><use href="#icon-users"/></svg></span>
+          <div><p>Total mahasiswa</p><strong id="total-students">0</strong><span>Dalam daftar mahasiswa</span></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon stat-violet"><svg class="icon" aria-hidden="true"><use href="#icon-book"/></svg></span>
+          <div><p>Jurusan terwakili</p><strong id="total-programs">0</strong><span>Program studi mahasiswa</span></div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon stat-teal"><svg class="icon" aria-hidden="true"><use href="#icon-list"/></svg></span>
+          <div><p>Hasil pencarian</p><strong id="total-results">0</strong><span id="results-description">Seluruh data ditampilkan</span></div>
+        </article>
+      </div>
+    </section>
+
+    <p class="storage-warning" id="storage-warning" role="status" hidden></p>
+    <noscript><p class="storage-warning">Aktifkan JavaScript untuk menampilkan dan mengelola data mahasiswa.</p></noscript>
+
+    <div class="workspace">
+      <section class="card form-card" id="student-form-panel" aria-labelledby="form-title">
+        <div class="card-heading">
+          <span class="section-marker"><svg class="icon" aria-hidden="true"><use href="#icon-plus"/></svg></span>
+          <div><h2 id="form-title">Form mahasiswa</h2><p id="form-description">Lengkapi data mahasiswa baru.</p></div>
+        </div>
+        <span class="edit-badge" id="edit-badge" hidden>Mode edit</span>
+        <form id="student-form">
+          <div class="field">
+            <label for="nim">NIM <span aria-hidden="true">*</span></label>
+            <input id="nim" name="nim" type="text" inputmode="numeric" pattern="[0-9]{6,15}" minlength="6" maxlength="15" placeholder="Contoh: 5025251001" aria-describedby="nim-help" required>
+            <small id="nim-help">Gunakan 6 sampai 15 digit angka yang unik.</small>
+          </div>
+          <div class="field">
+            <label for="name">Nama lengkap <span aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" minlength="2" maxlength="80" autocomplete="name" placeholder="Masukkan nama lengkap" required>
+          </div>
+          <div class="field">
+            <label for="department">Jurusan <span aria-hidden="true">*</span></label>
+            <select id="department" name="department" required>
+              <option value="">Pilih jurusan</option>
+              <option>Informatika</option>
+              <option>Sistem Informasi</option>
+              <option>Teknik Komputer</option>
+              <option>Manajemen</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="email">Email <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="nama@example.com" required>
+          </div>
+          <div class="form-actions">
+            <button class="button button-primary save-button" type="submit">
+              <svg class="icon" aria-hidden="true"><use href="#icon-save"/></svg><span id="save-label">Simpan mahasiswa</span>
+            </button>
+            <button class="button button-secondary" id="cancel-button" type="button">Batal</button>
+            <button class="button button-ghost" id="reset-button" type="button">
+              <svg class="icon" aria-hidden="true"><use href="#icon-reset"/></svg>Reset
+            </button>
+          </div>
+        </form>
+        <p class="form-note"><svg class="icon" aria-hidden="true"><use href="#icon-info"/></svg><span>Kolom bertanda * wajib diisi.</span></p>
+      </section>
+
+      <section class="card data-card" id="students" aria-labelledby="data-title">
+        <div class="data-heading">
+          <div><p class="eyebrow">Direktori mahasiswa</p><h2 id="data-title">Data mahasiswa <span class="count-badge" id="student-count">0</span></h2></div>
+          <span class="local-label"><svg class="icon" aria-hidden="true"><use href="#icon-device"/></svg>Disimpan di browser</span>
+        </div>
+        <div class="table-toolbar">
+          <form class="search-box" id="search-form" role="search">
+            <label class="sr-only" for="search">Cari mahasiswa berdasarkan nama, NIM, jurusan, atau email</label>
+            <input id="search" type="search" placeholder="Cari nama, NIM, atau email..." autocomplete="off">
+            <button type="submit" aria-label="Cari mahasiswa" title="Cari mahasiswa"><svg class="icon" aria-hidden="true"><use href="#icon-search"/></svg></button>
+          </form>
+          <div class="filter-box">
+            <label class="sr-only" for="department-filter">Filter jurusan</label>
+            <select id="department-filter">
+              <option value="">Semua jurusan</option>
+              <option>Informatika</option><option>Sistem Informasi</option><option>Teknik Komputer</option><option>Manajemen</option>
+            </select>
+          </div>
+        </div>
+        <p id="table-scroll-hint" class="scroll-hint">Geser tabel untuk melihat kolom lainnya.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Tabel data mahasiswa" aria-describedby="table-scroll-hint">
+          <table>
+            <caption class="sr-only">Daftar mahasiswa dengan NIM, nama, jurusan, email, dan aksi pengelolaan.</caption>
+            <thead><tr><th scope="col">No</th><th scope="col">NIM</th><th scope="col">Nama mahasiswa</th><th scope="col">Jurusan</th><th scope="col">Email</th><th scope="col" class="action-column">Aksi</th></tr></thead>
+            <tbody id="student-rows"></tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <p id="pagination-info" class="pagination-info" aria-live="polite"></p>
+          <nav class="pagination" id="pagination" aria-label="Halaman daftar mahasiswa"></nav>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer">
+      <p><svg class="icon" aria-hidden="true"><use href="#icon-cap"/></svg>Student Management<span class="footer-divider">/</span>Project Pemrograman Web</p>
+      <p>Data contoh untuk latihan. Perubahan tersimpan di browser ini.</p>
+    </footer>
+  </main>
+
+  <dialog id="delete-dialog" class="modal" aria-labelledby="delete-title" aria-describedby="delete-description">
+    <div class="modal-icon danger-icon"><svg class="icon" aria-hidden="true"><use href="#icon-trash"/></svg></div>
+    <h2 id="delete-title">Hapus mahasiswa?</h2>
+    <p id="delete-description"></p>
+    <div class="modal-actions"><button type="button" class="button button-secondary" id="delete-cancel" autofocus>Batal</button><button type="button" class="button button-danger" id="delete-confirm">Hapus mahasiswa</button></div>
+  </dialog>
+
+  <dialog id="about-dialog" class="modal about-modal" aria-labelledby="about-title">
+    <button class="icon-button modal-close" type="button" id="about-close" aria-label="Tutup informasi aplikasi"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button>
+    <div class="modal-icon"><svg class="icon" aria-hidden="true"><use href="#icon-cap"/></svg></div>
+    <p class="eyebrow">Tentang project</p>
+    <h2 id="about-title">Student Management</h2>
+    <p>Project latihan HTML, CSS, dan JavaScript untuk mengelola daftar mahasiswa melalui form, tabel, pencarian, filter jurusan, dan pagination.</p>
+    <p>Seluruh data awal bersifat fiktif. Perubahan tersimpan pada browser dan perangkat yang digunakan, sehingga tidak dibagikan ke pengguna lain.</p>
+    <a class="button button-primary" href="https://github.com/Boyeep/PWEB-Student-Management" target="_blank" rel="noopener noreferrer">Lihat source code</a>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true" hidden><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg><span id="toast-message"></span></div>
+</body>
+</html>

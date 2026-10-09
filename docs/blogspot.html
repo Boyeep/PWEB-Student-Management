@@ -1,0 +1,173 @@
+<article lang="id" style="font-family:Arial,sans-serif;font-size:16px;line-height:1.8;color:#263238;max-width:900px;margin:0 auto;overflow-wrap:anywhere">
+  <p>Pada tugas Pemrograman Web kali ini, saya membuat <strong>CSS UI Student Management</strong> menggunakan HTML, CSS, dan JavaScript. Website ini menyediakan form mahasiswa serta tabel data dengan tampilan yang rapi, responsif, dan mudah digunakan.</p>
+  <p>Fokus latihan ini adalah mengatur layout, warna, tipografi, form, tabel, tombol, dan responsive design dengan CSS. JavaScript ditambahkan agar proses menambah, mengedit, menghapus, dan mencari data mahasiswa dapat dicoba secara langsung.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Tujuan Latihan</h2>
+  <ul style="padding-left:24px">
+    <li>Menyusun antarmuka Student Management menggunakan HTML semantik.</li>
+    <li>Menerapkan CSS Grid dan Flexbox untuk mengatur layout.</li>
+    <li>Membuat komponen form, tabel, tombol, dan pagination yang konsisten.</li>
+    <li>Menggunakan media query agar tampilan dapat menyesuaikan ukuran layar.</li>
+    <li>Menambahkan interaksi pengelolaan data mahasiswa dengan JavaScript.</li>
+  </ul>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Konsep Tampilan</h2>
+  <p>Tampilan menggunakan navbar biru tua, latar belakang abu-abu muda, dan kartu putih untuk memisahkan bagian form dan data mahasiswa. Warna biru digunakan untuk aksi utama, sedangkan warna merah digunakan pada aksi hapus.</p>
+  <p>Bagian atas menampilkan ringkasan total mahasiswa, jumlah jurusan yang terwakili, dan jumlah hasil pencarian. Pada desktop, form ditempatkan di kiri dan tabel di kanan. Pada layar kecil, kedua bagian ditampilkan dalam satu kolom.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Struktur Project</h2>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7">PWEB-Student-Management/
++-- index.html
++-- style.css
++-- app.js
++-- assets/
+|   +-- favicon.svg
++-- screenshots/
+|   +-- desktop.png
+|   +-- mobile.png
+|   +-- edit.png
++-- docs/
+|   +-- blogspot.html
+|   +-- BLOGSPOT.md
++-- qa-report.json
++-- README.md</pre>
+  <p><code>index.html</code> menyimpan struktur halaman, <code>style.css</code> mengatur tampilan, dan <code>app.js</code> menangani pengelolaan data serta interaksi. Folder screenshot digunakan untuk dokumentasi hasil website.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Implementasi CSS</h2>
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">1. CSS Variables</h3>
+  <p>Warna utama, latar belakang, teks, dan sudut komponen disimpan melalui CSS custom properties. Dengan cara ini, perubahan tampilan dapat dilakukan dari satu tempat.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>:root {
+  --primary: #245df2;
+  --navy: #132b4b;
+  --background: #f4f7fb;
+  --surface: #ffffff;
+  --text: #1c2d45;
+  --border: #e2e8f1;
+  --radius: 16px;
+}</code></pre>
+
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">2. Layout dengan CSS Grid</h3>
+  <p>CSS Grid membagi area utama menjadi kolom form berukuran 320 piksel dan kolom tabel yang menggunakan sisa ruang. Penggunaan <code>minmax(0, 1fr)</code> membantu membatasi kolom agar tabel tidak mendorong lebar halaman.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>.workspace {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}</code></pre>
+
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">3. Navbar dan Toolbar dengan Flexbox</h3>
+  <p>Flexbox digunakan untuk menyusun identitas aplikasi dan navigasi pada header. Pendekatan yang sama digunakan pada toolbar pencarian agar kolom pencarian dan filter jurusan berada dalam satu baris di desktop.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>.header-inner {
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  gap: 38px;
+}
+
+.table-toolbar {
+  display: flex;
+  gap: 12px;
+  margin: 24px 26px;
+}</code></pre>
+
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">4. Form dan Focus State</h3>
+  <p>Setiap input memiliki label, jarak yang konsisten, dan penanda kolom wajib. Saat input dipilih, warna border berubah menjadi biru dengan bayangan tipis sehingga posisi fokus lebih mudah dikenali.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>.field input:focus,
+.field select:focus {
+  border-color: var(--primary);
+  outline: 0;
+  box-shadow: 0 0 0 3px rgb(36 93 242 / 12%);
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 3px;
+}</code></pre>
+
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">5. Tabel dan Tombol Aksi</h3>
+  <p>Header tabel menggunakan latar yang berbeda dari baris data. Setiap baris memiliki garis pemisah, hover state, badge jurusan, dan tombol edit serta hapus. Tabel ditempatkan di dalam wadah yang dapat digulir secara horizontal pada layar kecil.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 810px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background: #f8faff;
+}</code></pre>
+
+  <h3 style="color:#132b4b;margin:24px 0 12px;line-height:1.4">6. Responsive Design</h3>
+  <p>Pada lebar maksimal 980 piksel, layout utama berubah menjadi satu kolom. Pada lebar maksimal 640 piksel, form, toolbar, dan susunan tombol disesuaikan lagi agar tetap nyaman digunakan pada ponsel.</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;white-space:pre;font-size:14px;line-height:1.7"><code>@media (max-width: 980px) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .form-card form {
+    display: block;
+  }
+
+  .table-toolbar {
+    flex-direction: column;
+  }
+}</code></pre>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Fitur Website</h2>
+  <ol style="padding-left:24px">
+    <li><strong>Form mahasiswa:</strong> input NIM, nama lengkap, jurusan, dan email.</li>
+    <li><strong>Tambah mahasiswa:</strong> data valid masuk ke tabel dan ringkasan jumlah mahasiswa diperbarui.</li>
+    <li><strong>Edit mahasiswa:</strong> data baris yang dipilih dimuat ke form untuk diperbarui.</li>
+    <li><strong>Hapus mahasiswa:</strong> penghapusan dilakukan setelah konfirmasi pada dialog.</li>
+    <li><strong>Batal dan reset:</strong> batal mengakhiri pengisian atau mode edit; reset mengosongkan kolom sambil mempertahankan mode yang sedang digunakan.</li>
+    <li><strong>Pencarian:</strong> mencari mahasiswa berdasarkan nama, NIM, jurusan, atau email tanpa membedakan huruf besar dan kecil.</li>
+    <li><strong>Filter jurusan:</strong> membatasi hasil berdasarkan program studi dan dapat digunakan bersama pencarian.</li>
+    <li><strong>Pagination:</strong> menampilkan lima mahasiswa per halaman dengan informasi rentang data.</li>
+    <li><strong>Penyimpanan lokal:</strong> perubahan data disimpan melalui localStorage agar tetap tersedia setelah refresh pada browser yang sama.</li>
+  </ol>
+  <p>Data awal berisi 12 mahasiswa fiktif dari empat jurusan. Website ini merupakan latihan frontend. Penyimpanan berlaku pada browser dan perangkat yang digunakan, tanpa backend atau sinkronisasi antarpengguna.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Hasil Website</h2>
+  <figure style="margin:24px 0;text-align:center">
+    <a href="https://raw.githubusercontent.com/Boyeep/PWEB-Student-Management/main/screenshots/desktop.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Boyeep/PWEB-Student-Management/main/screenshots/desktop.png" alt="Tampilan desktop Student Management dengan form di kiri dan tabel mahasiswa di kanan" width="1600" height="1143" loading="lazy" style="max-width:100%;height:auto;border:1px solid #dbe2ea;border-radius:10px"></a>
+    <figcaption style="margin-top:10px;color:#617087;font-size:14px">Tampilan desktop dengan ringkasan data, form, pencarian, filter, dan pagination.</figcaption>
+  </figure>
+  <figure style="margin:28px 0;text-align:center">
+    <a href="https://raw.githubusercontent.com/Boyeep/PWEB-Student-Management/main/screenshots/mobile.png" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/Boyeep/PWEB-Student-Management/main/screenshots/mobile.png" alt="Tampilan mobile Student Management dalam satu kolom" width="375" height="2046" loading="lazy" style="width:320px;max-width:100%;height:auto;border:1px solid #dbe2ea;border-radius:10px"></a>
+    <figcaption style="margin-top:10px;color:#617087;font-size:14px">Tampilan ponsel dengan layout satu kolom dan tabel yang dapat digeser.</figcaption>
+  </figure>
+  <p><a href="https://raw.githubusercontent.com/Boyeep/PWEB-Student-Management/main/screenshots/edit.png" target="_blank" rel="noopener noreferrer" style="color:#1749ce">Lihat screenshot mode edit mahasiswa</a>.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Pengujian</h2>
+  <p>Pengujian dilakukan menggunakan Chrome dalam mode headless. Seluruh 13 kelompok pemeriksaan lolos dan tidak ditemukan error JavaScript selama pemeriksaan.</p>
+  <ul style="padding-left:24px">
+    <li>Tambah, edit, hapus, batal, dan reset data mahasiswa.</li>
+    <li>Validasi kolom wajib, format email, nama kosong, dan NIM duplikat.</li>
+    <li>Pencarian, filter jurusan, pagination, dan tampilan ketika tidak ada hasil.</li>
+    <li>Penyimpanan setelah refresh serta penanganan data tersimpan yang rusak atau kosong.</li>
+    <li>Tampilan pada lebar 375, 768, 812 dalam orientasi landscape, 1366, dan 1600 piksel.</li>
+    <li>Navigasi keyboard, dialog, dan preferensi reduced motion.</li>
+  </ul>
+  <p>Detail pemeriksaan tersedia pada <a href="https://github.com/Boyeep/PWEB-Student-Management/blob/main/qa-report.json" target="_blank" rel="noopener noreferrer" style="color:#1749ce">laporan pengujian project</a>.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Cara Menjalankan</h2>
+  <p>Website dapat dijalankan dengan membuka <code>index.html</code> di browser modern. Alternatifnya, jalankan perintah berikut dari folder project untuk menggunakan server lokal:</p>
+  <pre style="padding:18px;background:#f3f6fa;border:1px solid #dbe2ea;border-radius:8px;overflow-x:auto;font-size:14px"><code>python -m http.server 8000</code></pre>
+  <p>Setelah itu, buka <code>http://localhost:8000</code>. Project tidak memerlukan proses build atau instalasi package untuk digunakan.</p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Tautan Project</h2>
+  <p><strong>Source code GitHub:</strong><br><a href="https://github.com/Boyeep/PWEB-Student-Management" target="_blank" rel="noopener noreferrer" style="color:#1749ce">PWEB-Student-Management</a></p>
+  <p><strong>Demo website:</strong><br><a href="https://boyeep.github.io/PWEB-Student-Management/" target="_blank" rel="noopener noreferrer" style="color:#1749ce">Student Management di GitHub Pages</a></p>
+
+  <h2 style="color:#132b4b;margin:32px 0 14px;line-height:1.4">Hasil Pembelajaran</h2>
+  <p>Melalui project ini, saya mempelajari cara menyusun antarmuka menggunakan CSS Grid, Flexbox, CSS variables, dan media query. Saya juga mempelajari konsistensi komponen, focus state, penyajian tabel, validasi form, serta hubungan antara tampilan CSS dan interaksi JavaScript.</p>
+  <p>Hasil akhirnya adalah Student Management yang dapat digunakan untuk latihan pengelolaan data mahasiswa sekaligus menunjukkan penerapan CSS pada antarmuka website.</p>
+</article>

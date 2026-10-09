@@ -1,0 +1,24 @@
+{
+  "checks_passed": 13,
+  "checks": [
+    "Halaman awal, ringkasan, dan tabel 5 dari 12 data",
+    "Pagination, batas halaman, dan nomor urut",
+    "Pencarian nama, NIM, email, filter jurusan, dan hasil kosong",
+    "Tambah mahasiswa dan persistensi setelah refresh",
+    "Validasi NIM unik, email, nama kosong, dan input wajib",
+    "Edit data, reset dalam mode edit, dan batal tanpa mengubah daftar",
+    "Konfirmasi hapus, pembatalan, Escape, dan persistensi penghapusan",
+    "Input nama ditampilkan sebagai teks, tidak menjadi HTML",
+    "Navigasi, dialog About, keyboard Escape, dan reduced motion",
+    "Layout 375, 768, 812 landscape, dan 1366 piksel tanpa overflow halaman; CRUD di mobile",
+    "Data tersimpan rusak, daftar kosong, dan hapus data terakhir tanpa mengembalikan seed",
+    "Aplikasi tetap berfungsi dengan pesan jelas saat storage tidak tersedia",
+    "Tidak ada error JavaScript atau console selama pemeriksaan"
+  ],
+  "runtime_errors": [],
+  "screenshots": [
+    "desktop.png",
+    "mobile.png",
+    "edit.png"
+  ]
+}
